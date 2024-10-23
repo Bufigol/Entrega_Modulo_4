@@ -65,7 +65,7 @@ public class Alumno {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Alumno alumno)) return false;
-        return Objects.equals(getRut(), alumno.getRut()) && Objects.equals(getNombre(), alumno.getNombre()) && Objects.equals(getApellido(), alumno.getApellido()) && Objects.equals(getDireccion(), alumno.getDireccion()) && Objects.equals(getMaterias(), alumno.getMaterias());
+        return Objects.equals(getRut(), alumno.getRut());
     }
 
     @Override
