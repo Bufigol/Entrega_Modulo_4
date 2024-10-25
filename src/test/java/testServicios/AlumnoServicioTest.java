@@ -1,5 +1,6 @@
 package testServicios;
 
+
 import com.bufigol.modelo.Alumno;
 import com.bufigol.modelo.Materia;
 import com.bufigol.modelo.MateriaEnum;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 public class AlumnoServicioTest {
@@ -29,6 +29,7 @@ public class AlumnoServicioTest {
     private static final String RUT_ALUMNO = "12345678-9";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    HashMap<String,Alumno> listaRecienCreada;
 
     @BeforeEach
     public void setUp() {
@@ -40,6 +41,7 @@ public class AlumnoServicioTest {
         this.mapu_dos = new Alumno(RUT_ALUMNO, "Juan", "Perez", "Calle 123", new ArrayList<>());
         this.alumnoMock = mock(Alumno.class);
         System.setOut(new PrintStream(outContent));
+        this.listaRecienCreada = new HashMap<String,Alumno>();
     }
     @After
     public void restoreStreams() {
@@ -90,8 +92,12 @@ public class AlumnoServicioTest {
         alumnoServicio.crearAlummno(mapu);
         assertEquals(materias,alumnoServicio.materiasPorAlumnos(RUT_ALUMNO));
     }
+
     @Test
     public void listarAlumnosTest() {
+        when(this.alumnoServicioMock.listarAlumnos()).thenReturn(new HashMap<String,Alumno>());
 
+        assertEquals(this.listaRecienCreada,this.alumnoServicioMock.listarAlumnos());
+        assertEquals(this.listaRecienCreada,this.alumnoServicio.listarAlumnos());
     }
 }

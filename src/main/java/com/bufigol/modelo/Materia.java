@@ -12,6 +12,10 @@ public class Materia {
         this.notas = notas;
     }
 
+    public Materia(MateriaEnum nombre) {
+        this.nombre = nombre;
+    }
+
     public Materia() {
     }
 

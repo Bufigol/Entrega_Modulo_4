@@ -1,5 +1,6 @@
 package com.bufigol.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +17,14 @@ public class Alumno {
         this.apellido = apellido;
         this.direccion = direccion;
         this.materias = materias;
+    }
+
+    public Alumno(String rut, String nombre, String apellido, String direccion) {
+        this.rut = rut;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.materias = new ArrayList<Materia>();
     }
 
     public Alumno() {
@@ -71,5 +80,24 @@ public class Alumno {
     @Override
     public int hashCode() {
         return Objects.hash(getRut(), getNombre(), getApellido(), getDireccion(), getMaterias());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Alumno{");
+        sb.append("rut='").append(rut).append('\'');
+        sb.append(", nombre='").append(nombre).append('\'');
+        sb.append(", apellido='").append(apellido).append('\'');
+        sb.append(", direccion='").append(direccion).append('\'');
+        sb.append(", materias=");
+        Materia[] listaMaterias = (Materia[]) materias.toArray();
+        for (int i = 0; i < listaMaterias.length; i++) {
+            sb.append(listaMaterias[i].getNombre());
+            if (i < listaMaterias.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append('}');
+        return sb.toString();
     }
 }
