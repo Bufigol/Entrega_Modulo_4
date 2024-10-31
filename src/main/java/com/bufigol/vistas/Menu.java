@@ -96,7 +96,7 @@ public class Menu extends MenuTemplate {
             }
             opcSel = opcSel -1;
             Materia materiaSeleccionada = materias.get(opcSel);
-            List<Materia> materiasAlumno = this.alumnoServicio.listarAlumnos().get(rut).getMaterias();
+            ArrayList<Materia> materiasAlumno = this.alumnoServicio.listarAlumnos().get(rut).getMaterias();
             for(int i = 0; i < materiasAlumno.size(); i++){
                 if(materiasAlumno.get(i).equals(materiaSeleccionada)){
                     ArrayList<Double> notas = (ArrayList<Double>) materiasAlumno.get(i).getNotas();
@@ -116,16 +116,14 @@ public class Menu extends MenuTemplate {
     @Override
     public void listarAlummnos() {
         Map<String, Alumno> alumnosAMostrar = this.alumnoServicio.listarAlumnos();
-        if(alumnosAMostrar != null && !alumnosAMostrar.isEmpty()){
-            Alumno[] alumnos = (Alumno[]) alumnosAMostrar.values().toArray();
-            for(int i = 0; i < alumnos.length; i++){
-                System.out.println("----------------------------");
-                System.out.println(alumnos[i].toString());
-                System.out.println("----------------------------");
-            }
-        }else{
-            System.out.println("No hay alumnos que listar");
+        String[] rutAlumnos =  alumnosAMostrar.keySet().toArray(new String[0]);
+        System.out.println("------------------------");
+        for(int i = 0; i < rutAlumnos.length; i++){
+            Alumno currentAlumno = alumnosAMostrar.get(rutAlumnos[i]);
+            System.out.println(currentAlumno.toString());
         }
+        System.out.println("------------------------");
+
     }
 
     /**

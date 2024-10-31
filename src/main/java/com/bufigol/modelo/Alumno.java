@@ -9,9 +9,9 @@ public class Alumno {
     private String nombre;
     private String apellido;
     private String direccion;
-    private List materias;
+    private ArrayList<Materia> materias;
 
-    public Alumno(String rut, String nombre, String apellido, String direccion, List materias) {
+    public Alumno(String rut, String nombre, String apellido, String direccion, ArrayList<Materia>  materias) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -62,11 +62,11 @@ public class Alumno {
         this.direccion = direccion;
     }
 
-    public List getMaterias() {
+    public ArrayList<Materia>  getMaterias() {
         return materias;
     }
 
-    public void setMaterias(List materias) {
+    public void setMaterias(ArrayList<Materia>  materias) {
         this.materias = materias;
     }
 
@@ -90,7 +90,7 @@ public class Alumno {
         sb.append(", apellido='").append(apellido).append('\'');
         sb.append(", direccion='").append(direccion).append('\'');
         sb.append(", materias=");
-        Materia[] listaMaterias = (Materia[]) materias.toArray();
+        Materia[] listaMaterias = materias.toArray(new Materia[0]);
         for (int i = 0; i < listaMaterias.length; i++) {
             sb.append(listaMaterias[i].getNombre());
             if (i < listaMaterias.length - 1) {
