@@ -2,6 +2,7 @@ package com.bufigol.modelo;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.ArrayList;
 
 public class Materia {
     private MateriaEnum nombre;
@@ -14,6 +15,7 @@ public class Materia {
 
     public Materia(MateriaEnum nombre) {
         this.nombre = nombre;
+        this.notas= new ArrayList<Double>();
     }
 
     public Materia() {

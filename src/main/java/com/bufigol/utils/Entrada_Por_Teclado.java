@@ -12,6 +12,12 @@ public class Entrada_Por_Teclado {
             return pedirEntero(sc);
         }
     }
+
+    public static double pedirDouble(String msg) {
+        System.out.println(msg);
+        return pedirDouble(new Scanner(System.in));
+    }
+
     public static double pedirDouble(Scanner sc) {
         try{
             return sc.nextDouble();

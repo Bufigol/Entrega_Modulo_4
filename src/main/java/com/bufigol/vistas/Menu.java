@@ -9,6 +9,7 @@ import com.bufigol.utils.Entrada_Por_Teclado;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Menu extends MenuTemplate {
@@ -62,16 +63,16 @@ public class Menu extends MenuTemplate {
     public void agregarMateria() {
         //agregarMateria(String rutAlumno, Materia currentMate){
         String rut = Entrada_Por_Teclado.pedirCadena("Ingresa el rut del Alumno: ");
-        String[] materiasDisponibles = MateriaEnum.values().toString().split(",");
+        MateriaEnum[] materiasDisponibles = MateriaEnum.values();
         System.out.println("Materias disponibles: ");
         for(int i = 0; i < materiasDisponibles.length; i++){
-            System.out.println( ( i + 1 ) + materiasDisponibles[i]);
+            System.out.println( ( i + 1 ) + materiasDisponibles[i].toString());
         }
         int seleccion;
         do{
             seleccion = Entrada_Por_Teclado.pedirEntero("Ingresa el numero de la materia: ");
         }while( (seleccion <=0) || seleccion > materiasDisponibles.length);
-        Materia materia = new Materia( MateriaEnum.valueOf( materiasDisponibles[seleccion-1] ) );
+        Materia materia = new Materia( MateriaEnum.valueOf(String.valueOf(materiasDisponibles[seleccion-1])) );
         this.alumnoServicio.agregarMateria(rut, materia);
     }
 
@@ -80,6 +81,32 @@ public class Menu extends MenuTemplate {
      */
     @Override
     public void agregarNotaPasoUno() {
+        String rut = Entrada_Por_Teclado.pedirCadena("Ingresa el rut del Alumno: ");
+        List<Materia> materias = this.alumnoServicio.materiasPorAlumnos(rut);
+        if(materias.isEmpty() || materias == null){
+            System.out.println("El alumno con rut " + rut + " no tiene materias");
+        }else{
+            for(int i = 0; i < materias.size(); i++){
+                System.out.println( ( i + 1 ) + "- "+ materias.get(i).toString());
+            }
+            int opcSel = Entrada_Por_Teclado.pedirEntero("Ingresa el numero de la materia: ");
+            while(opcSel <= 0 || opcSel > materias.size()){
+                System.out.println("Opcion no valida");
+                opcSel = Entrada_Por_Teclado.pedirEntero("Ingresa el numero de la materia: ");
+            }
+            opcSel = opcSel -1;
+            Materia materiaSeleccionada = materias.get(opcSel);
+            List<Materia> materiasAlumno = this.alumnoServicio.listarAlumnos().get(rut).getMaterias();
+            for(int i = 0; i < materiasAlumno.size(); i++){
+                if(materiasAlumno.get(i).equals(materiaSeleccionada)){
+                    ArrayList<Double> notas = (ArrayList<Double>) materiasAlumno.get(i).getNotas();
+                    notas.add(Entrada_Por_Teclado.pedirDouble("Ingresa la nota: "));
+                    materiasAlumno.get(i).setNotas(notas);
+                }
+            }
+            this.alumnoServicio.listarAlumnos().get(rut).setMaterias(materiasAlumno);
+            System.out.println("Nota agregada con exito");
+        }
 
     }
 
